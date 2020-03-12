@@ -1,0 +1,162 @@
+[
+  {
+    "id": 9,
+    "slug": "beginner",
+    "link": "https://easystoriesinenglish.com/category/beginner/",
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/categories/9"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/posts?categories=9"
+        }
+      ]
+    },
+    "count": 19,
+    "description": "Stories for beginner-level students, equivalent to CEFR A1-A2.",
+    "name": "L1 - Beginner",
+    "taxonomy": "category",
+    "parent": 0
+  },
+  {
+    "id": 10,
+    "slug": "preint",
+    "link": "https://easystoriesinenglish.com/category/preint/",
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/categories/10"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/posts?categories=10"
+        }
+      ]
+    },
+    "count": 17,
+    "description": "Stories for pre-intermediate level students, equivalent to CEFR B1.",
+    "name": "L2 - Pre-Intermediate",
+    "taxonomy": "category",
+    "parent": 0
+  },
+  {
+    "id": 11,
+    "slug": "intermediate",
+    "link": "https://easystoriesinenglish.com/category/intermediate/",
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/categories/11"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/posts?categories=11"
+        }
+      ]
+    },
+    "count": 12,
+    "description": "Stories for intermediate-level students, equivalent to CEFR B2.",
+    "name": "L3 - Intermediate",
+    "taxonomy": "category",
+    "parent": 0
+  },
+  {
+    "id": 12,
+    "slug": "advanced",
+    "link": "https://easystoriesinenglish.com/category/advanced/",
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/categories/12"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://easystoriesinenglish.com/wp-json/wp/v2/posts?categories=12"
+        }
+      ]
+    },
+    "count": 2,
+    "description": "Stories for advanced level students, equivalent to CEFR C1.",
+    "name": "L4 - Advanced",
+    "taxonomy": "category",
+    "parent": 0
+  }
+]
