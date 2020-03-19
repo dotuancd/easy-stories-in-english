@@ -1,4 +1,7 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:esie/api/category.dart';
 import 'package:esie/api/post.dart';
 import 'package:esie/models/category.dart';
@@ -8,15 +11,69 @@ import 'package:esie/screens/post.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(
+              child: null,
+              decoration: BoxDecoration(color: Colors.green),
+            ),
+            ListTile(
+              leading: Icon(Icons.favorite, color: Colors.green),
+              title: Text("Favorite"),
+              enabled: true,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.event_note, color: Colors.green),
+              title: Text("Vocabulary Builder"),
+              enabled: true,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings, color: Colors.green),
+              title: Text("Settings"),
+              enabled: true,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.star, color: Colors.green),
+              title: Text("Rate us"),
+              enabled: true,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            Divider(),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ListTile(
+                  title: Text("Version 1.1.2"),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text('Easy Stories in English'),
+//        leading: ButtonB,
       ),
       body: HomeScreenWidget(),
     );
@@ -49,6 +106,7 @@ class HomePageState extends State {
     super.initState();
     _fetchCategories();
     _fetchPosts();
+    FavoriteArticleRepository.getInstance().initialize();
 
     _scrollController.addListener(() {
       final scrolledToBottom = _scrollController.position.pixels == _scrollController.position.maxScrollExtent;
@@ -64,7 +122,6 @@ class HomePageState extends State {
     _scrollController.dispose();
     super.dispose();
   }
-
 
     @override
   Widget build(BuildContext context) {
@@ -178,13 +235,7 @@ class ArticleItem extends StatelessWidget {
             backgroundColor: Colors.white,
             subtitle: Text(DateFormat('yMd').format(this.post.modifiedAt), style: TextStyle(color: Colors.black54),),
             title: Text(this.category.name, style: TextStyle(color: Colors.black87)),
-            trailing: IconButton(
-              onPressed: () {
-              },
-              icon: Icon(
-                Icons.favorite_border, color: Colors.green,
-              ),
-            ),
+            trailing: FavouriteArticle(post: this.post),
           ),
           child: Padding(
             padding: EdgeInsets.all(10),
@@ -209,6 +260,110 @@ class ArticleItem extends StatelessWidget {
       ),
     )
     ;
+  }
+}
+
+class FavouriteArticle extends StatefulWidget {
+
+  final Post post;
+
+  const FavouriteArticle({this.post});
+
+  @override
+  State<StatefulWidget> createState() {
+    return FavoriteArticleState(post: this.post);
+  }
+}
+
+class FavoriteArticleRepository {
+
+  static final FavoriteArticleRepository _instance = FavoriteArticleRepository();
+
+  static FavoriteArticleRepository getInstance() {
+    return _instance;
+  }
+
+  Map<String, dynamic> favorites = {};
+
+  Future<File> get _file async {
+    return new File(join((await getApplicationSupportDirectory()).path, "favorites.json"));
+  }
+
+  void initialize() async {
+    final file = await _file;
+
+    Map<String, dynamic> decoded = json.decode(await file.readAsString());
+
+    favorites.addAll(decoded);
+
+    print(favorites);
+  }
+
+  void save() async {
+    final file = await _file;
+    final json = jsonEncode(favorites);
+    file.writeAsString(json);
+  }
+
+  FavoriteArticleRepository add(Post post) {
+    favorites.addEntries([MapEntry(post.id.toString(), true)]);
+    return this;
+  }
+
+  FavoriteArticleRepository remove(Post post) {
+    favorites.remove(post.id.toString());
+    return this;
+  }
+
+  FavoriteArticleRepository toggle(Post post) {
+    if (this.has(post)) {
+      this.remove(post);
+    } else {
+      this.add(post);
+    }
+
+    this.save();
+
+    return this;
+  }
+
+  bool has(Post post) {
+    return favorites.containsKey(post.id.toString());
+  }
+}
+
+class FavoriteArticleState extends State {
+
+  bool favorite;
+
+  final Post post;
+
+  final _favoriteRepository = FavoriteArticleRepository.getInstance();
+
+  FavoriteArticleState({this.post});
+
+  @override
+  void initState() {
+    favorite = _favoriteRepository.has(post);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      color: Colors.red,
+      onPressed: () {
+
+        _favoriteRepository.toggle(this.post);
+
+        setState(() {
+          this.favorite = !this.favorite;
+        });
+      },
+      icon: Icon(
+        favorite ? Icons.favorite : Icons.favorite_border,
+        color: Colors.green,
+      ),
+    );
   }
 }
 
